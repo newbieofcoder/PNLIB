@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_phieu_muon"
+            android:icon="@drawable/baseline_home_24"
+            android:title="Quản lý phiếu mượn" />
+        <item
+            android:id="@+id/nav_loai_sach"
+            android:icon="@drawable/baseline_library_books_24"
+            android:title="Quản lý loại sách" />
+        <item
+            android:id="@+id/nav_sach"
+            android:icon="@drawable/baseline_picture_as_pdf_24"
+            android:title="Quản lý sách" />
+        <item
+            android:id="@+id/nav_thanh_vien"
+            android:icon="@drawable/baseline_people_24"
+            android:title="Quản lý thành viên" />
+    </group>
+    <item android:title="Thống kê">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_top_10_book"
+                    android:icon="@drawable/baseline_vertical_align_top_24"
+                    android:title="10 sách mượn nhiều nhất" />
+                <item
+                    android:id="@+id/nav_doanh_thu"
+                    android:icon="@drawable/baseline_attach_money_24"
+                    android:title="Doanh thu" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Người dùng">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_them_nguoi_dung"
+                    android:icon="@drawable/baseline_person_add_24"
+                    android:title="Thêm người dùng" />
+                <item
+                    android:id="@+id/nav_doi_mat_khau"
+                    android:icon="@drawable/baseline_vpn_key_24"
+                    android:title="Đổi mật khẩu" />
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/baseline_logout_24"
+                    android:title="Đăng xuất" />
+            </group>
+        </menu>
+    </item>
+</menu>

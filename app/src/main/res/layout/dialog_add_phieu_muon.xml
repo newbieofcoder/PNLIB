@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Phiếu mượn: "
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edtPhieuMuon"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <Spinner
+        android:layout_margin="15dp"
+        android:id="@+id/spTV"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"/>
+    <Spinner
+        android:layout_margin="15dp"
+        android:id="@+id/spSach"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Ngày: "
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edtNgay"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Tiền thuê: "
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edtTienThue"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textSize="16sp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <CheckBox
+        android:id="@+id/chkDaTraSach"
+        android:layout_gravity="left"
+        android:text="Đã trả sách"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/lnSavePhieuMuon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/login_button"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/baseline_save_24"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LƯU"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/login_button"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/baseline_cancel_24"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HUỶ"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

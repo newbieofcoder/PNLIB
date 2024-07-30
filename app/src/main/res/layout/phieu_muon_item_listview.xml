@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="7dp">
+
+    <LinearLayout
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvMaPhieu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ma phieu: 1"
+            android:textColor="#727272"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvThanhVien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thanh vien: le thi be"
+            android:textColor="#727272"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvSach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ten sach: Java1"
+                android:textColor="#727272"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTrangThai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chua tra sach"
+                android:textColor="#727272"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTienThue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tien thue: 1000"
+                android:textColor="#727272"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvNgayMuon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ngay muon: 01/01/2023"
+                android:textColor="#727272"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgDeletePhieuMuon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/baseline_delete_forever_24" />
+</LinearLayout>
