@@ -3,14 +3,12 @@ package hoanglv.fpoly.pnlib.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -28,6 +26,7 @@ import hoanglv.fpoly.pnlib.fragments.LoaiSachFragment;
 import hoanglv.fpoly.pnlib.fragments.PhieuMuonFragment;
 import hoanglv.fpoly.pnlib.fragments.SachFragment;
 import hoanglv.fpoly.pnlib.fragments.ThanhVienFragment;
+import hoanglv.fpoly.pnlib.fragments.AddThuThuFragment;
 import hoanglv.fpoly.pnlib.fragments.ThuThuFragment;
 import hoanglv.fpoly.pnlib.fragments.Top10Fragment;
 
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-
         Intent intent = getIntent();
         admin_login_state = intent.getBooleanExtra("admin", false);
         String fullName = intent.getStringExtra("fullName");
@@ -55,9 +53,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (admin_login_state) {
             profile_name.setText("Welcome administrator");
             navigationView.getMenu().findItem(R.id.nav_them_nguoi_dung).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_thu_thu).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_doi_mat_khau).setVisible(false);
         } else {
             profile_name.setText("Welcome " + fullName);
             navigationView.getMenu().findItem(R.id.nav_them_nguoi_dung).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_thu_thu).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_doi_mat_khau).setVisible(true);
         }
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -104,10 +106,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             replaceFragment(new DoiMatKhauFragment());
             toolbar.setTitle("Đổi mật khẩu");
         } else if (id == R.id.nav_them_nguoi_dung) {
-            replaceFragment(new ThuThuFragment());
+            replaceFragment(new AddThuThuFragment());
             toolbar.setTitle("Thêm người dùng");
-        }
-        else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_thu_thu) {
+            replaceFragment(new ThuThuFragment());
+            toolbar.setTitle("Quản lý thủ thư");
+        } else if (id == R.id.nav_logout) {
             Toast.makeText(this, "Đã đăng xuất", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, Login.class));
             finish();

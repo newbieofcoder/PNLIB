@@ -1,11 +1,13 @@
 package hoanglv.fpoly.pnlib.fragments;
 
+import static android.content.Intent.getIntent;
 import static java.time.MonthDay.now;
 
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -36,17 +38,21 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 import hoanglv.fpoly.pnlib.DAO.PhieuMuonDao;
 import hoanglv.fpoly.pnlib.DAO.SachDao;
 import hoanglv.fpoly.pnlib.DAO.ThanhVienDAO;
+import hoanglv.fpoly.pnlib.DAO.ThuThuDAO;
 import hoanglv.fpoly.pnlib.R;
 import hoanglv.fpoly.pnlib.adapters.PhieuMuonAdapter;
 import hoanglv.fpoly.pnlib.adapters.spinneradapter.SachSpinnerAdapter;
 import hoanglv.fpoly.pnlib.adapters.spinneradapter.ThanhVienSpinnerAdapter;
+import hoanglv.fpoly.pnlib.adapters.spinneradapter.ThuThuSpinnerAdapter;
 import hoanglv.fpoly.pnlib.models.PhieuMuon;
 import hoanglv.fpoly.pnlib.models.Sach;
 import hoanglv.fpoly.pnlib.models.ThanhVien;
+import hoanglv.fpoly.pnlib.models.ThuThu;
 import hoanglv.fpoly.pnlib.services.MyApplication;
 
 public class PhieuMuonFragment extends Fragment {
@@ -55,23 +61,24 @@ public class PhieuMuonFragment extends Fragment {
     private ArrayList<PhieuMuon> phieuMuonList;
     private ArrayList<ThanhVien> thanhVienList;
     private ArrayList<Sach> sachList;
+    private ArrayList<ThuThu> thuThuList;
     private static PhieuMuonDao phieuMuonDAO;
     private static ThanhVienDAO thanhVienDAO;
     private static SachDao sachDao;
+    private static ThuThuDAO thuThuDAO;
     FloatingActionButton fab;
     SachSpinnerAdapter sachSpinnerAdapter;
     ThanhVienSpinnerAdapter thanhVienSpinnerAdapter;
-    AlertDialog.Builder builder;
+    ThuThuSpinnerAdapter thuThuSpinnerAdapter;
     LinearLayout lnSavePhieuMuon, lnCancel;
     EditText edtMaPM, edtTienThue, edtNgay;
-    Spinner spnTV, spnSach;
-    TextView tvTienThue, tvNgay;
+    Spinner spnTV, spnSach, spnTT;
     CheckBox chkTraSach;
-    int maSach, positionTV, positionSach, maTV;
+    int maSach, positionTV, positionSach, maTV, trangThai, positionTT, position;
     PhieuMuon phieuMuon;
     Dialog dialog;
-    String ngay;
-    String tienThue;
+    String maThuThu;
+    Boolean admin;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,16 +89,30 @@ public class PhieuMuonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_phieu_muon, container, false);
+        Intent intent = requireActivity().getIntent();
+        Bundle bundle = intent.getExtras();
+        trangThai = bundle.getInt("trangThai");
+        position = bundle.getInt("position");
+        admin = bundle.getBoolean("admin");
         lvPhieuMuon = view.findViewById(R.id.lvPhieuMuon);
         fab = view.findViewById(R.id.btn_Add);
         phieuMuonDAO = new PhieuMuonDao(getActivity());
         capNhatLV();
         fab.setOnClickListener(v -> {
-            openDialog(getActivity(), 0);
+            if (trangThai == 1) {
+                openDialog(getActivity(), 0);
+            } else {
+                Toast.makeText(getActivity(), "Bạn không có quyền thêm", Toast.LENGTH_SHORT).show();
+            }
+
         });
         lvPhieuMuon.setOnItemLongClickListener((parent, view1, position, id) -> {
-            phieuMuon = phieuMuonList.get(position);
-            openDialog(getActivity(), 1);
+            if (trangThai == 1) {
+                phieuMuon = phieuMuonList.get(position);
+                openDialog(getActivity(), 1);
+            } else {
+                Toast.makeText(getActivity(), "Bạn không có quyền sửa", Toast.LENGTH_SHORT).show();
+            }
             return false;
         });
         return view;
@@ -104,6 +125,7 @@ public class PhieuMuonFragment extends Fragment {
 
         spnTV = view1.findViewById(R.id.spTV);
         spnSach = view1.findViewById(R.id.spSach);
+        spnTT = view1.findViewById(R.id.spTT);
         edtNgay = view1.findViewById(R.id.edtNgay);
         edtTienThue = view1.findViewById(R.id.edtTienThue);
         chkTraSach = view1.findViewById(R.id.chkDaTraSach);
@@ -116,7 +138,6 @@ public class PhieuMuonFragment extends Fragment {
         thanhVienList = thanhVienDAO.getData("SELECT * FROM THANHVIEN");
         thanhVienSpinnerAdapter = new ThanhVienSpinnerAdapter(context, thanhVienList);
         spnTV.setAdapter(thanhVienSpinnerAdapter);
-        //spnTV.setSelection(0);
         spnTV.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -139,14 +160,32 @@ public class PhieuMuonFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 maSach = sachList.get(position).getMaSach();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
 
+        thuThuDAO = new ThuThuDAO(context);
+        thuThuList = new ArrayList<>();
+        thuThuList = thuThuDAO.getData();
+        thuThuSpinnerAdapter = new ThuThuSpinnerAdapter(context, thuThuList);
+        spnTT.setAdapter(thuThuSpinnerAdapter);
+        spnTT.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                maThuThu = thuThuList.get(position).getMaTT();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         edtMaPM.setEnabled(false);
+        if (!admin) {
+            spnTT.setSelection(position);
+            spnTT.setEnabled(false);
+        }
         if (type == 1) {
             edtMaPM.setText(String.valueOf(phieuMuon.getMaPM()));
             for (int i = 0; i < thanhVienList.size(); i++) {
@@ -161,13 +200,15 @@ public class PhieuMuonFragment extends Fragment {
                 }
             }
             spnSach.setSelection(positionSach);
+            for (int i = 0; i < thuThuList.size(); i++) {
+                if (thuThuList.get(i).getMaTT().equals(phieuMuon.getMaTT())) {
+                    positionTT = i;
+                }
+            }
+            spnTT.setSelection(positionTT);
             edtNgay.setText(phieuMuon.getNgay());
             edtTienThue.setText(String.valueOf(phieuMuon.getTienThue()));
-            if (phieuMuon.getTraSach() == 1) {
-                chkTraSach.setChecked(true);
-            } else {
-                chkTraSach.setChecked(false);
-            }
+            chkTraSach.setChecked(phieuMuon.getTraSach() == 1);
         }
         lnCancel.setOnClickListener(v -> {
             dialog.dismiss();
@@ -179,6 +220,7 @@ public class PhieuMuonFragment extends Fragment {
                 String tienThue = edtTienThue.getText().toString();
                 phieuMuon.setMaTV(maTV);
                 phieuMuon.setMaSach(maSach);
+                phieuMuon.setMaTT(maThuThu);
                 phieuMuon.setTienThue(Integer.parseInt(tienThue));
                 phieuMuon.setNgay(ngay);
                 if (chkTraSach.isChecked()) {

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -47,6 +48,8 @@ public class ThanhVienFragment extends Fragment {
     static PhieuMuonDao phieuMuonDao;
     EditText edtMaTV, edtTenTV, edtNamSinh;
     private static final String REGEX_NAME = "^[a-zA-Z\\s]+$";
+    String maTT;
+    int trangThai;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,15 +61,26 @@ public class ThanhVienFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_thanh_vien, container, false);
         lvThanhVien = view.findViewById(R.id.lvThanhVien);
+        Intent intent = requireActivity().getIntent();
+        trangThai = intent.getIntExtra("trangThai", 0);
+        maTT = intent.getStringExtra("maTT");
         fab = view.findViewById(R.id.btn_Add_ThanhVien);
         thanhVienDAO = new ThanhVienDAO(getActivity());
         capNhatLV();
         fab.setOnClickListener(v -> {
-            openDialog(getActivity(), 0);
+            if (trangThai == 1) {
+                openDialog(getActivity(), 0);
+            } else {
+                Toast.makeText(getActivity(), "Bạn không có quyền thêm", Toast.LENGTH_SHORT).show();
+            }
         });
         lvThanhVien.setOnItemLongClickListener((parent, view1, position, id) -> {
-            thanhVien = thanhVienList.get(position);
-            openDialog(getActivity(), 1);
+            if (trangThai == 1) {
+                thanhVien = thanhVienList.get(position);
+                openDialog(getActivity(), 1);
+            } else {
+                Toast.makeText(getActivity(), "Bạn không có quyền sửa", Toast.LENGTH_SHORT).show();
+            }
             return false;
         });
         return view;

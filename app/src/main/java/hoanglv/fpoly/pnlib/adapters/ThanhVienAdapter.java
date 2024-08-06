@@ -51,4 +51,5 @@ public class ThanhVienAdapter extends ArrayAdapter<ThanhVien> {
         });
         return view;
     }
+
 }

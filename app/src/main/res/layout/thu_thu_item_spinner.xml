@@ -4,17 +4,10 @@
     android:orientation="horizontal"
     android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/tvMaLoaiSachSp"
-        android:layout_weight="0.3"
-        android:text="Ma loai sach:"
-        android:textSize="16sp"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tvTenLoaiSachSp"
+        android:id="@+id/tvTenTTSp"
         android:layout_weight="1"
-        android:textSize="16sp"
-        android:text="Ten loai sach:"
+        android:textSize="20sp"
+        android:text="Ten thu thu:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </LinearLayout>

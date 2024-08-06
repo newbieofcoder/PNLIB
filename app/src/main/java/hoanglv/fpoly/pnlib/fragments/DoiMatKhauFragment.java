@@ -42,8 +42,9 @@ public class DoiMatKhauFragment extends Fragment {
         // Inflate the layout for this fragment
         thuThuDAO = new ThuThuDAO(getContext());
         Intent intent = requireActivity().getIntent();
-        String password = intent.getStringExtra("password");
-        String username = intent.getStringExtra("username");
+        Bundle bundle = intent.getExtras();
+        String password = bundle.getString("password");
+        String username = bundle.getString("username");
         View view = inflater.inflate(R.layout.fragment_doi_mat_khau, container, false);
 
         EditText edtOldPassword = view.findViewById(R.id.edtOldPassword);

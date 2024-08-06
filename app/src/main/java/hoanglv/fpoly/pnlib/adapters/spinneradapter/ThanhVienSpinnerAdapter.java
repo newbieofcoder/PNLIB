@@ -32,10 +32,10 @@ public class ThanhVienSpinnerAdapter extends ArrayAdapter<ThanhVien> {
         if (view == null) {
             view = View.inflate(context, R.layout.thanh_vien_item_spinner, null);
         }
+        tvMaTV = view.findViewById(R.id.tvMaTVSp);
+        tvTenTV = view.findViewById(R.id.tvTenTVSp);
         final ThanhVien thanhVien = list.get(position);
         if (thanhVien != null) {
-            tvMaTV = view.findViewById(R.id.tvMaTVSp);
-            tvTenTV = view.findViewById(R.id.tvTenTVSp);
             tvMaTV.setText(thanhVien.getMaTV() + ".");
             tvTenTV.setText(thanhVien.getHoTen());
         }

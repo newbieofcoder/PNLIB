@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -48,6 +49,8 @@ public class LoaiSachFragment extends Fragment {
     EditText edtMaLoaiSach, edtTenLoaiSach;
     LinearLayout lnSaveLoaiSach, lnCacel;
     LoaiSach loaiSach;
+    String maTT;
+    int trangThai;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,15 +62,26 @@ public class LoaiSachFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_loai_sach, container, false);
         lvLoaiSach = view.findViewById(R.id.lvLoaiSach);
+        Intent intent = requireActivity().getIntent();
+        trangThai = intent.getIntExtra("trangThai", 0);
+        maTT = intent.getStringExtra("maTT");
         fab = view.findViewById(R.id.btn_Add_Loai_Sach);
         loaiSachDAO = new LoaiSachDAO(getActivity());
         capNhatLV();
         fab.setOnClickListener(v -> {
-            openDialog(getActivity(), 0);
+            if (trangThai == 1) {
+                openDialog(getActivity(), 0);
+            } else {
+                Toast.makeText(getActivity(), "Bạn không có quyền thêm", Toast.LENGTH_SHORT).show();
+            }
         });
         lvLoaiSach.setOnItemLongClickListener((parent, view1, position, id) -> {
-            loaiSach = loaiSachList.get(position);
-            openDialog(getActivity(), 1);
+            if (trangThai == 1) {
+                loaiSach = loaiSachList.get(position);
+                openDialog(getActivity(), 1);
+            } else {
+                Toast.makeText(getActivity(), "Bạn không có quyền sửa", Toast.LENGTH_SHORT).show();
+            }
             return false;
         });
         return view;

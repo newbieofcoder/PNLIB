@@ -20,6 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String CREATE_TABLE_ThuThu = "CREATE TABLE THUTHU (" +
                 "maTT TEXT PRIMARY KEY, " +
                 "tenTT TEXT NOT NULL, " +
+                "trangThai INT NOT NULL, " +
                 "matKhau TEXT NOT NULL)";
         db.execSQL(CREATE_TABLE_ThuThu);
 

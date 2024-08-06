@@ -44,20 +44,4 @@ public class TopAdapter extends ArrayAdapter<Top> {
         }
         return view;
     }
-
-    @Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            view = View.inflate(context, R.layout.top10_item_listview, null);
-        }
-        tvSach = view.findViewById(R.id.tvSach);
-        tvSoLuong = view.findViewById(R.id.tvSoLuong);
-        final Top top = list.get(position);
-        if (top != null) {
-            tvSach.setText("Sách: " + top.getTenSach());
-            tvSoLuong.setText("Số lượng: " + top.getSoLuong());
-        }
-        return view;
-    }
 }

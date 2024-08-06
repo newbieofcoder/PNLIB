@@ -33,6 +33,11 @@
         android:id="@+id/spSach"
         android:layout_width="350dp"
         android:layout_height="wrap_content"/>
+    <Spinner
+        android:layout_margin="15dp"
+        android:id="@+id/spTT"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_marginHorizontal="20dp"
         android:orientation="horizontal"

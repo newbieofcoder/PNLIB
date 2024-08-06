@@ -15,7 +15,7 @@ import hoanglv.fpoly.pnlib.R;
 import hoanglv.fpoly.pnlib.models.Sach;
 
 public class SachSpinnerAdapter extends ArrayAdapter<Sach> {
-    private Context context;
+    private final Context context;
     private ArrayList<Sach> list;
     TextView tvMaSach, tvTenSach;
 

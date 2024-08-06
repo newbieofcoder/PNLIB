@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="7dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvMaThuThu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ma thu thu: 1"
+            android:textColor="#727272"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvTenThuThu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ten thu thu: Le Van Hoang"
+            android:textColor="#727272"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <CheckBox
+        android:id="@+id/chkTrangThai"
+        android:enabled="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

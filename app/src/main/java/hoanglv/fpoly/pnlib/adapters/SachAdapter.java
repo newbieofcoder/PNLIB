@@ -62,33 +62,4 @@ public class SachAdapter extends ArrayAdapter<Sach> {
         });
         return view;
     }
-
-    @Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            view = View.inflate(context, R.layout.sach_item_listview, null);
-        }
-        TextView tvMaSach = view.findViewById(R.id.tvMaSach);
-        TextView tvTenSach = view.findViewById(R.id.tvSach);
-        TextView tvGiaThue = view.findViewById(R.id.tvGiaThue);
-        TextView tvLoaiSach = view.findViewById(R.id.tvLoaiSach);
-        ImageView imgDeleteSach = view.findViewById(R.id.imgDeleteSach);
-
-        final Sach sach = list.get(position);
-        if (sach != null) {
-            LoaiSachDAO loaiSachDAO = new LoaiSachDAO(context);
-            LoaiSach loaiSach = loaiSachDAO.getID(String.valueOf(sach.getMaLoai()));
-
-            tvMaSach.setText("Mã sách: " + sach.getMaSach());
-            tvTenSach.setText("Tên sách: " + sach.getTenSach());
-            tvGiaThue.setText("Giá thuê: " + sach.getGiaThue());
-            tvLoaiSach.setText("Loại sách: " + loaiSach.getTenLoai());
-        }
-
-        imgDeleteSach.setOnClickListener(v -> {
-            fragment.delete(String.valueOf(sach.getMaSach()));
-        });
-        return view;
-    }
 }

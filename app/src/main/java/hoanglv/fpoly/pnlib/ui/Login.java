@@ -29,6 +29,8 @@ public class Login extends AppCompatActivity {
     private List<ThuThu> thuThuList;
     private Boolean existed = false;
     private String fullName;
+    private int trangThai;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +63,16 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(Login.this, MainActivity.class);
                 intent.putExtra("admin", true);
                 intent.putExtra("password", password);
+                intent.putExtra("trangThai", 1);
                 startActivity(intent);
                 finish();
             } else {
-                for (ThuThu thuThu: thuThuList) {
-                    if (username.equals(thuThu.getMaTT()) && password.equals(thuThu.getMatKhau())) {
-                        fullName = thuThu.getTenTT();
+                for (int i = 0; i < thuThuList.size(); i++) {
+                    if (username.equals(thuThuList.get(i).getMaTT())
+                            && password.equals(thuThuList.get(i).getMatKhau())) {
+                        fullName = thuThuList.get(i).getTenTT();
+                        trangThai = thuThuList.get(i).getTrangThai();
+                        position = i;
                         existed = true;
                         break;
                     }
@@ -79,10 +85,14 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Đăng nhập dưới quyền thủ thư",
                             Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Login.this, MainActivity.class);
-                    intent.putExtra("admin", false);
-                    intent.putExtra("username", username);
-                    intent.putExtra("fullName", fullName);
-                    intent.putExtra("password", password);
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("admin", false);
+                    bundle.putString("username", username);
+                    bundle.putString("fullName", fullName);
+                    bundle.putString("password", password);
+                    bundle.putInt("trangThai", trangThai);
+                    bundle.putInt("position", position);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
                 }
